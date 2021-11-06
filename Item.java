@@ -14,7 +14,7 @@ public abstract class Item {
         this.name = name;
     }
 
-    public abstract void showInfo();
+    public abstract void printInfo();
 
     public String getName() {
         return name;

@@ -98,7 +98,7 @@ public class Inventory {
     /**
      * print the inventory
      */
-    public void showInfo() {
+    public void printInfo() {
         System.out.println();
         this.printWeapons();
         System.out.println();
@@ -119,7 +119,7 @@ public class Inventory {
         System.out.println("-------------------------------------------------------------------------------------");
         for (int i = 0; i < this.weaponList.size(); i++) {
             System.out.print(" " + (i + 1) + "   ");
-            this.weaponList.get(i).showInfo();
+            this.weaponList.get(i).printInfo();
         }
     }
 
@@ -133,7 +133,7 @@ public class Inventory {
         System.out.println("---------------------------------------------------------------------------");
         for (int i = 0; i < this.armorList.size(); i++) {
             System.out.print(" " + (i + 1) + "   ");
-            this.armorList.get(i).showInfo();
+            this.armorList.get(i).printInfo();
         }
     }
 
@@ -147,7 +147,7 @@ public class Inventory {
         System.out.println("------------------------------------------------------------------------------------------------------");
         for (int i = 0; i < this.potionList.size(); i++) {
             System.out.print(" " + (i + 1) + "   ");
-            this.potionList.get(i).showInfo();
+            this.potionList.get(i).printInfo();
         }
     }
 
@@ -161,7 +161,7 @@ public class Inventory {
         System.out.println("------------------------------------------------------------------------------------------");
         for (int i = 0; i < this.spellList.size(); i++) {
             System.out.print(" " + (i + 1) + "   ");
-            this.spellList.get(i).showInfo();
+            this.spellList.get(i).printInfo();
         }
     }
 

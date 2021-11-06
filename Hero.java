@@ -19,7 +19,127 @@ public class Hero extends RPGCharacter {
     protected Weapon weapon;
     protected Armor armor;
 
+    public Hero(){
+        super();
+        this.exp = 0;
+        this.money = 0;
+        this.mp = 0;
+        this.defense = 0;
+        this.str = 1;
+        this.dex = 1;
+        this.agi = 1;
+        this.inventory = new Inventory();
+    }
 
+    public Hero(String name, int exp, double mp, double str, double dex, double agi, double money){
+        super(name, 1, 0);
+        this.exp = exp;
+        this.money = money;
+        this.mp = mp;
+        this.str = str;
+        this.dex = dex;
+        this.agi = agi;
+        this.inventory = new Inventory();
+    }
+
+    // buy sth from market
+    public void buy(RPGItem product) {
+        this.money -= product.getPrice();
+        this.inventory.addItem(product);
+    }
+
+    public void sell() {
+        this.inventory.printInfo();
+        boolean invalid;
+        String choice;
+        Scanner in = new Scanner(System.in);
+        do{
+            invalid = false;
+            this.chooseSellType();
+            System.out.print("Enter C/c to sell another item or any other key to finish:");
+            choice = in.nextLine();
+            if (choice.equals("Q") || choice.equals("q")) {
+                System.exit(0);
+            }
+            else if (choice.equals("C") || choice.equals("c")) {
+                invalid = true;
+            }
+        }while(invalid);
+    }
+
+    public void chooseSellType() {
+        System.out.print("Enter the type of the item you want to sale 1.Weapon 2.Armor 3.Potion 4.Spell or R/r to return:");
+        Scanner in = new Scanner(System.in);
+        String itemType;
+        boolean loop;
+        do {
+            loop = false;
+            itemType = in.nextLine();
+            switch (itemType) {
+                case "Q":
+                case "q":
+                    System.exit(0);
+                case "R":
+                case "r":
+                    return;
+                case "1": {
+                    ArrayList<Weapon> itemList = this.inventory.getWeaponList();
+                    this.chooseSellItem(itemList);
+                    break;
+                }
+                case "2": {
+                    ArrayList<Armor> itemList = this.inventory.getArmorList();
+                    this.chooseSellItem(itemList);
+                    break;
+                }
+                case "3": {
+                    ArrayList<Potion> itemList = this.inventory.getPotionList();
+                    this.chooseSellItem(itemList);
+                    break;
+                }
+                case "4": {
+                    ArrayList<Spell> itemList = this.inventory.getSpellList();
+                    this.chooseSellItem(itemList);
+                    break;
+                }
+                default:
+                    System.out.print("Invalid input, please choose from 1.Weapon 2.Armor 3.Potion 4.Spell:");
+                    loop = true;
+                    break;
+            }
+        }while(loop);
+    }
+
+    public <T extends Tradeable> void chooseSellItem(ArrayList<T> itemList) {
+//        ArrayList<Weapon> itemList = this.inventory.getWeapons();
+        Scanner in = new Scanner(System.in);
+        if (itemList.size() < 1) {
+            System.out.println("\u001B[31m No such item in your inventory! \u001B[0m");
+        } else {
+            // select item want to sell
+            System.out.print("Enter the ID of the item you want to sale:");
+            String itemId;
+            boolean invalid = true;
+            do {
+                invalid = false;
+                itemId = in.nextLine();
+                int idNum = Integer.parseInt(itemId);
+                if (idNum > 0 && idNum <= itemList.size()) {
+                    T i = itemList.remove(idNum - 1);
+                    // Sale with half price
+                    double gained = i.returnToMarket();
+                    RPGItem ri = (RPGItem) i;
+                    this.money += gained;
+                    System.out.print("\u001B[33m Sale " + ri.getName() + " with " + gained + " money.\u001B[0m");
+                } else {
+                    System.out.print("Invalid input, please input between 1 and " + itemList.size() + ":");
+                    invalid = true;
+                }
+            } while (invalid);
+        }
+    }
+
+    // wear sth
     public <W extends Wearable> void wear(W wearable) {
         if (wearable instanceof Weapon) {
             this.weapon = (Weapon) wearable;
