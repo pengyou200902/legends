@@ -4,5 +4,5 @@
  */
 
 public interface Wearable {
-    void putOnto(Hero hero);
+//    void putOnto(Hero hero);
 }

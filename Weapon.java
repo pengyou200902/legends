@@ -20,10 +20,10 @@ public class Weapon extends RPGItem implements Wearable {
         this.numHands = numHands;
     }
 
-    @Override
-    public void putOnto(Hero hero) {
-        hero.wear(this);
-    }
+//    @Override
+//    public void putOnto(Hero hero) {
+//        hero.wear(this);
+//    }
 
     @Override
     public void showInfo() {

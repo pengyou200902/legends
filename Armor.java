@@ -22,10 +22,10 @@ public class Armor extends RPGItem implements Wearable {
         return defense;
     }
 
-    @Override
-    public void putOnto(Hero hero) {
-        hero.wear(this);
-    }
+//    @Override
+//    public void putOnto(Hero hero) {
+//        hero.wear(this);
+//    }
 
     @Override
     public void showInfo() {
