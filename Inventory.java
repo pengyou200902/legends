@@ -100,19 +100,19 @@ public class Inventory {
      */
     public void showInfo() {
         System.out.println();
-        this.displayWeapons();
+        this.printWeapons();
         System.out.println();
-        this.displayArmors();
+        this.printArmors();
         System.out.println();
-        this.displayPotions();
+        this.printPotions();
         System.out.println();
-        this.displaySpells();
+        this.printSpells();
     }
 
     /**
      * print all weapons in the market
      */
-    public void displayWeapons() {
+    public void printWeapons() {
         System.out.println("     \u001B[36mWeapons  List\u001B[0m  ");
         System.out.println();
         System.out.println("ID   Name\t\t Cost  Required Level  Damage  Required Hands");
@@ -126,7 +126,7 @@ public class Inventory {
     /**
      * print armors in the market
      */
-    public void displayArmors() {
+    public void printArmors() {
         System.out.println("     \u001B[36mArmors  List\u001B[0m  ");
         System.out.println();
         System.out.println("ID   Name\t\t Cost  Required Level  Damage Reduction");
@@ -140,7 +140,7 @@ public class Inventory {
     /**
      * print potions in the market
      */
-    public void displayPotions() {
+    public void printPotions() {
         System.out.println("     \u001B[36mPotions  List\u001B[0m  ");
         System.out.println();
         System.out.println("ID   Name\t\t Cost  Required Level  Increment  Attribute Affected");
@@ -154,7 +154,7 @@ public class Inventory {
     /**
      * print spells in the market
      */
-    public void displaySpells() {
+    public void printSpells() {
         System.out.println("     \u001B[36mSpells List\u001B[0m  ");
         System.out.println();
         System.out.println("ID   Name\t\t Cost  Required Level  Damage  Mana Cost  Type");
