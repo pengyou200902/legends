@@ -21,5 +21,5 @@ public abstract class BaseCharacter {
 
 
     // Display information
-    public abstract void display();
+    public abstract void showInfo();
 }
