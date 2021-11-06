@@ -4,4 +4,5 @@
  */
 
 public interface Tradeable {
+    public double returnToMarket();
 }

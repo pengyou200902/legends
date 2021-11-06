@@ -3,7 +3,7 @@
  * @date 11/5/2021 8:11 PM
  */
 
-public abstract class Spell extends RPGItem implements Castable {
+public abstract class Spell extends RPGItem implements Castable, Tradeable {
 
     protected String affectAttribute = null;
 
@@ -23,6 +23,11 @@ public abstract class Spell extends RPGItem implements Castable {
     }
 
     @Override
+    public double returnToMarket() {
+        return this.getPrice() / 2.0;
+    }
+
+    @Override
     public void cast(Hero hero, Monster target) {
         hero.castSpell(target);
     }
@@ -37,7 +42,7 @@ public abstract class Spell extends RPGItem implements Castable {
 
     public abstract String getAffectAttribute();
 
-    public abstract void showInfo();
+    public abstract void printInfo();
 
 
 }

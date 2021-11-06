@@ -3,7 +3,7 @@
  * @date 11/5/2021 8:10 PM
  */
 
-public class Weapon extends RPGItem implements Wearable {
+public class Weapon extends RPGItem implements Wearable, Tradeable {
 
     protected double damage;
     protected int numHands;
@@ -20,13 +20,13 @@ public class Weapon extends RPGItem implements Wearable {
         this.numHands = numHands;
     }
 
-//    @Override
-//    public void putOnto(Hero hero) {
-//        hero.wear(this);
-//    }
+    @Override
+    public double returnToMarket() {
+        return this.getPrice() / 2.0;
+    }
 
     @Override
-    public void showInfo() {
+    public void printInfo() {
         System.out.println(toString());
     }
 

@@ -3,7 +3,7 @@
  * @date 11/5/2021 8:10 PM
  */
 
-public class Armor extends RPGItem implements Wearable {
+public class Armor extends RPGItem implements Wearable, Tradeable {
 
     protected double defense;
 
@@ -28,12 +28,17 @@ public class Armor extends RPGItem implements Wearable {
 //    }
 
     @Override
-    public void showInfo() {
+    public void printInfo() {
         System.out.println(toString());
     }
 
     @Override
     public String toString() {
         return this.name + "\t\t " + this.price + "  " + this.minLevel + "  " + this.defense;
+    }
+
+    @Override
+    public double returnToMarket() {
+        return this.getPrice() / 2.0;
     }
 }
