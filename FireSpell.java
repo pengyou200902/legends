@@ -21,7 +21,7 @@ public class FireSpell extends Spell {
 
     @Override
     public void printInfo() {
-        System.out.println(toString());
+        System.out.println(this);
     }
     
     @Override

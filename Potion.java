@@ -34,7 +34,7 @@ public class Potion extends RPGItem implements SingleUse, Tradable {
 
     @Override
     public void printInfo() {
-        System.out.println(toString());
+        System.out.println(this);
     }
 
     @Override

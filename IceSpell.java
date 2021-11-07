@@ -18,7 +18,7 @@ public class IceSpell extends Spell {
 
     @Override
     public void printInfo() {
-        System.out.println(toString());
+        System.out.println(this);
     }
 
     @Override

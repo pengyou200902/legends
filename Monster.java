@@ -54,7 +54,7 @@ public abstract class Monster extends RPGCharacter {
     }
 
     public void printInfo() {
-        System.out.println(toString());
+        System.out.println(this);
     }
 
     @Override

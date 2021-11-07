@@ -29,7 +29,7 @@ public class Armor extends RPGItem implements Wearable, Tradable {
 
     @Override
     public void printInfo() {
-        System.out.println(toString());
+        System.out.println(this);
     }
 
     @Override

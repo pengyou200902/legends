@@ -35,7 +35,7 @@ public class Weapon extends RPGItem implements Wearable, Tradable {
 
     @Override
     public void printInfo() {
-        System.out.println(toString());
+        System.out.println(this);
     }
 
     @Override
