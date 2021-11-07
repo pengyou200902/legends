@@ -27,7 +27,7 @@ public abstract class RPGCharacter extends BaseCharacter {
 
     protected abstract boolean dodge();
 
-    protected void getDamage(double damage) {
+    protected void getHurt(double damage) {
         hp -= damage;
     }
 
