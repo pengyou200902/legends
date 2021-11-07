@@ -17,18 +17,14 @@ public abstract class Monster extends RPGCharacter {
         this.dodgeProbability = dodgeProbability;
     }
 
-    /**
-     * Probability to dodge = dodgeProbability * 0.01
-     *
-     * @return true if success, false if not
-     */
+
+    // Probability to dodge = dodgeProbability * 0.01
     public boolean dodge() {
         return Math.random() < this.dodgeProbability * 0.01;
     }
 
-    /**
-     * Attack a hero
-     */
+
+    // Attack a hero
     public void attack(RPGCharacter enemy) {
         Hero hero = (Hero) enemy;
         System.out.println("Turn \u001B[31m" + this.name + " V.S. " + enemy.getName() + "\u001B[0m");
@@ -40,16 +36,15 @@ public abstract class Monster extends RPGCharacter {
         else {
             double damage = Math.round(this.damage - hero.getDefense());
             if (damage > 0) {
-                hero.getDamage(damage);
+                hero.getHurt(damage);
             }
             // show message
             System.out.println("\u001B[33m" + this.name + " attack " + hero.name + " with " + damage + " damage. \u001B[0m");
         }
     }
 
-    /**
-     * Reduce attribute to 90%
-     */
+
+    // Reduce attribute to 90%
     public void reduceAttribute(String attributebName) {
         switch (attributebName) {
             case "defense" -> this.defense *= 0.9;
