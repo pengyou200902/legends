@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -42,6 +43,86 @@ public class Hero extends RPGCharacter {
         this.inventory = new Inventory();
     }
 
+    /** Take an action in battle */
+    public void action(RPGCharacter enemy){
+        boolean invalid;
+        String choice;
+        Monster monster = (Monster)enemy;
+        Scanner in = new Scanner(System.in);
+        System.out.println("\n\u001B[31m Turn "+this.name+" V.S "+enemy.getName()+"\u001B[0m\n");
+        do {
+            invalid = false;
+            System.out.print("Choose action 1.Attack 2.Cast Spell 3.Drink Potion 4.Change Weapon 5.Change Armor or I/i to view info:");
+            choice = in.nextLine();
+            switch (choice) {
+                case "Q":
+                case "q":
+                    System.exit(0);
+                case "I":
+                case "i":
+                    System.out.println("\n----------------");
+                    System.out.println("  Hero Info");
+                    System.out.println("----------------");
+                    System.out.println("Level   Name\t\t HP  Mana  Equipped Weapon\t\t Equipped Armor");
+                    System.out.println("---------------------------------------------------------------------");
+                    this.printStatus();
+                    System.out.println("\n----------------");
+                    System.out.println("  Enemy Info");
+                    System.out.println("----------------");
+                    System.out.println("Level   Name\t\t HP  Defense");
+                    System.out.println("------------------------------------");
+                    enemy.printInfo();
+                    System.out.println();
+                    invalid = true;
+                    break;
+                case "1":
+                    attack(monster);
+                    break;
+                case "2":
+                    if (this.inventory.getSpellList().size() < 1) {
+                        System.out.println("No spell in inventory:");
+                        invalid = true;
+                    } 
+                    else {
+                        castSpell(monster);
+                    }
+                    break;
+                case "3":
+                    if (this.inventory.getPotionList().size() < 1) {
+                        System.out.println("No potion in inventory:");
+                        invalid = true;
+                    } 
+                    else {
+                        // choose potion, including using it
+                        choosePotion();
+                    }
+                    break;
+                case "4":
+                    if (this.inventory.getWeaponList().size() < 1) {
+                        System.out.println("No weapon in inventory:");
+                        invalid = true;
+                    } 
+                    else {
+                        changeWeapon();
+                    }
+                    break;
+                case "5":
+                    if (this.inventory.getArmorList().size() < 1) {
+                        System.out.println("No armor in inventory:");
+                        invalid = true;
+                    } 
+                    else {
+                        changeArmor();
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid input, please input 1~5 or input I/i to view info:");
+                    invalid = true;
+                    break;
+            }
+        }while(invalid);
+    }
+
     // buy sth from market
     public void buy(RPGItem product) {
         this.money -= product.getPrice();
@@ -58,24 +139,22 @@ public class Hero extends RPGCharacter {
             this.chooseSellType();
             System.out.print("Enter C/c to sell another item or any other key to finish:");
             choice = in.nextLine();
-            if (choice.equals("Q") || choice.equals("q")) {
-                System.exit(0);
-            }
-            else if (choice.equals("C") || choice.equals("c")) {
-                invalid = true;
+            switch (choice) {
+                case "Q", "q" -> System.exit(0);
+                case "C", "c" -> invalid = true;
             }
         }while(invalid);
     }
 
     public void chooseSellType() {
-        System.out.print("Enter the type of the item you want to sale 1.Weapon 2.Armor 3.Potion 4.Spell or R/r to return:");
+        System.out.print("Enter the category of the item you want to sell 1.Weapon 2.Armor 3.Potion 4.Spell or R/r to return:");
         Scanner in = new Scanner(System.in);
-        String itemType;
-        boolean loop;
+        String category;
+        boolean invalid;
         do {
-            loop = false;
-            itemType = in.nextLine();
-            switch (itemType) {
+            invalid = false;
+            category = in.nextLine();
+            switch (category) {
                 case "Q":
                 case "q":
                     System.exit(0);
@@ -104,20 +183,20 @@ public class Hero extends RPGCharacter {
                 }
                 default:
                     System.out.print("Invalid input, please choose from 1.Weapon 2.Armor 3.Potion 4.Spell:");
-                    loop = true;
+                    invalid = true;
                     break;
             }
-        }while(loop);
+        }while(invalid);
     }
 
-    public <T extends Tradeable> void chooseSellItem(ArrayList<T> itemList) {
+    public <T extends Tradable> void chooseSellItem(List<T> itemList) {
 //        ArrayList<Weapon> itemList = this.inventory.getWeapons();
         Scanner in = new Scanner(System.in);
         if (itemList.size() < 1) {
             System.out.println("\u001B[31m No such item in your inventory! \u001B[0m");
         } else {
-            // select item want to sell
-            System.out.print("Enter the ID of the item you want to sale:");
+            // select item you want to sell
+            System.out.print("Enter the item index you want trade in:");
             String itemId;
             boolean invalid = true;
             do {
@@ -127,7 +206,7 @@ public class Hero extends RPGCharacter {
                 if (idNum > 0 && idNum <= itemList.size()) {
                     T i = itemList.remove(idNum - 1);
                     // Sale with half price
-                    double gained = i.returnToMarket();
+                    double gained = i.tradeIn();
                     RPGItem ri = (RPGItem) i;
                     this.money += gained;
                     System.out.print("\u001B[33m Sale " + ri.getName() + " with " + gained + " money.\u001B[0m");
@@ -137,6 +216,61 @@ public class Hero extends RPGCharacter {
                 }
             } while (invalid);
         }
+    }
+
+    // change weapon
+    public void changeWeapon() {
+        // Display all weapons in inventory
+        this.inventory.printWeapons();
+        System.out.println("Enter weapon index you want to use:");
+
+        boolean invalid = true;
+        String itemID;
+        ArrayList<Weapon> itemList = this.inventory.getWeaponList();
+        Scanner in = new Scanner(System.in);
+        do {
+            itemID = in.nextLine();
+            if (itemID.matches("\\d+")) {
+                int idNum = Integer.parseInt(itemID);
+                if (idNum > 0 && idNum <= itemList.size()) {
+                    invalid = false;
+                    this.wear(itemList.get(idNum - 1));
+                    System.out.println("\u001B[33m" + this.name + " Now uses weapon " + this.weapon.getName() + "\u001B[0m");
+                } else {
+                    System.out.println("Please input a valid index:");
+                }
+            } else {
+                System.out.println("Please input a valid index:");
+            }
+        } while (invalid);
+    }
+
+    // change armor
+    public void changeArmor() {
+        // Display all armors in inventory
+        this.inventory.printArmors();
+        System.out.println("Enter armor index you want to use:");
+
+        boolean invalid = true;
+        String itemID;
+        ArrayList<Armor> itemList = this.inventory.getArmorList();
+        Scanner in = new Scanner(System.in);
+        do {
+            itemID = in.nextLine();
+            if (itemID.matches("\\d+")) {
+                int idNum = Integer.parseInt(itemID);
+                if (idNum > 0 && idNum <= itemList.size()) {
+                    invalid = false;
+                    this.wear(itemList.get(idNum - 1));
+                    this.defense = this.armor.getDefense();
+                    System.out.println("\u001B[33m" + this.name + " Now uses armor " + this.armor.getName() + "\u001B[0m");
+                } else {
+                    System.out.println("Please input a valid index:");
+                }
+            } else {
+                System.out.println("Please input a valid index:");
+            }
+        } while (invalid);
     }
 
     // wear sth
@@ -164,6 +298,7 @@ public class Hero extends RPGCharacter {
         }
     }
 
+    // select a potion to use
     public void choosePotion() {
         this.inventory.printPotions();
         System.out.println("Enter the index of the potion you want to use:");
@@ -191,8 +326,43 @@ public class Hero extends RPGCharacter {
         } while (!valid);
     }
 
+    // select a spell to cast
     public void castSpell(Monster target) {
-
+        this.inventory.printSpells();
+        System.out.print("Enter spell index you want to use:");
+        boolean invalid = true;
+        String itemID;
+        ArrayList<Spell> itemList = this.inventory.getSpellList();
+        Scanner in = new Scanner(System.in);
+        do {
+            itemID = in.nextLine();
+            if (itemID.matches("\\d+")) {
+                int idNum = Integer.parseInt(itemID);
+                if (idNum > 0 && idNum <= itemList.size()) {
+                    invalid = false;
+                    Spell spell = itemList.get(idNum - 1);
+                    if (spell.getMpCost() > this.mp) {
+                        System.out.println("\u001B[33m" + this.name + " cast " + spell.getName() + " on  " + target.getName() + "\u001B[0m");
+                        System.out.println("\u001B[31m Not enough MP for the spell! \u001B[0m");
+                    } else {
+                        // Reduce mana
+                        this.mp -= spell.getMpCost();
+                        // Take damage
+                        double damage = spell.getDamage() * (1 + this.dex / 10000);
+                        String affectAttribute = spell.getAffectAttribute();
+                        target.getHurt(damage);
+                        target.reduceAttribute(affectAttribute);
+                        // Display message
+                        System.out.println("\u001B[33m" + this.name + " cast " + spell.getName() + " on  " + target.getName() + "\u001B[0m");
+                        System.out.println("\u001B[33m cause" + damage + " damage, reduce " + affectAttribute + "\u001B[0m");
+                    }
+                } else {
+                    System.out.println("Please input a valid index:");
+                }
+            } else {
+                System.out.println("Please input a valid index:");
+            }
+        } while (invalid);
     }
 
     /** Level up a hero */
@@ -226,15 +396,35 @@ public class Hero extends RPGCharacter {
     }
 
     public void printInventory(){
-        this.inventory.printWeapons();
-        this.inventory.printArmors();
-        this.inventory.printPotions();
-        this.inventory.printSpells();
+        this.inventory.printInfo();
     }
 
     @Override
     public void attack(RPGCharacter enemy) {
+        Monster monster = (Monster) enemy;
+        if (monster.dodge()) {
+            System.out.println("\n\u001B[33m" + this.name + " attack " + monster.name);
+            System.out.println("miss! \u001B[0m\n");
+        }
+        else {
+            double damage;
+            if (this.weapon == null) {
+                damage = (this.str - monster.getDefense()) * 0.05;
+            }
+            else {
+                damage = (this.str + this.weapon.getDamage() - monster.getDefense()) * 0.05;
+            }
+            if (damage > 0) {
+                monster.getHurt(damage);
+            }
 
+            System.out.println("\n\u001B[33m" + this.name + " attack " + monster.name);
+            System.out.println("cause " + damage + " damage. \u001B[0m\n");
+        }
+    }
+
+    public double getMoney() {
+        return money;
     }
 
     @Override
