@@ -3,7 +3,7 @@
  * @date 11/5/2021 8:11 PM
  */
 
-public abstract class Spell extends RPGItem implements Castable, Tradeable {
+public abstract class Spell extends RPGItem implements Castable, Tradable {
 
     protected String affectAttribute = null;
 
@@ -23,7 +23,7 @@ public abstract class Spell extends RPGItem implements Castable, Tradeable {
     }
 
     @Override
-    public double returnToMarket() {
+    public double tradeIn() {
         return this.getPrice() / 2.0;
     }
 

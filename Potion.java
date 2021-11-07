@@ -3,7 +3,7 @@
  * @date 11/5/2021 8:11 PM
  */
 
-public class Potion extends RPGItem implements SingleUse, Tradeable {
+public class Potion extends RPGItem implements SingleUse, Tradable {
 
     protected double amount;
     protected String[] attributes;
@@ -28,7 +28,7 @@ public class Potion extends RPGItem implements SingleUse, Tradeable {
     }
 
     @Override
-    public double returnToMarket() {
+    public double tradeIn() {
         return this.getPrice() / 2.0;
     }
 

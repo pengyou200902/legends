@@ -3,7 +3,7 @@
  * @date 11/5/2021 8:10 PM
  */
 
-public class Armor extends RPGItem implements Wearable, Tradeable {
+public class Armor extends RPGItem implements Wearable, Tradable {
 
     protected double defense;
 
@@ -38,7 +38,7 @@ public class Armor extends RPGItem implements Wearable, Tradeable {
     }
 
     @Override
-    public double returnToMarket() {
+    public double tradeIn() {
         return this.getPrice() / 2.0;
     }
 }
