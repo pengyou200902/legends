@@ -4,14 +4,15 @@
  */
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory {
+
     protected ArrayList<Weapon> weaponList;
     protected ArrayList<Armor> armorList;
     protected ArrayList<Potion> potionList;
     protected ArrayList<Spell> spellList;
 
-    /* Default constructor */
     Inventory() {
         this.weaponList = new ArrayList<>();
         this.armorList = new ArrayList<>();
@@ -19,9 +20,14 @@ public class Inventory {
         this.spellList = new ArrayList<>();
     }
 
-    /**
-     * Add Item to inventory
-     */
+    public Inventory(ArrayList<Weapon> weaponList, ArrayList<Armor> armorList, ArrayList<Potion> potionList, ArrayList<Spell> spellList) {
+        this.weaponList = weaponList;
+        this.armorList = armorList;
+        this.potionList = potionList;
+        this.spellList = spellList;
+    }
+
+    // Add Item to inventory
     public void addItem(Item item) {
         if (item instanceof Weapon) {
             this.weaponList.add((Weapon) item);
@@ -37,9 +43,8 @@ public class Inventory {
         }
     }
 
-    /**
-     * getters
-     */
+
+    // getters
     public ArrayList<Weapon> getWeaponList() {
         return weaponList;
     }
@@ -56,9 +61,8 @@ public class Inventory {
         return spellList;
     }
 
-    /**
-     * Get by index
-     */
+
+    // Get by index
     public Weapon getWeapon(int index) {
         return this.weaponList.get(index);
     }
@@ -76,9 +80,8 @@ public class Inventory {
     }
 
 
-    /**
-     * remove by index
-     */
+
+    // remove by index
     public Weapon removeWeapon(int index) {
         return this.weaponList.remove(index);
     }
@@ -95,9 +98,8 @@ public class Inventory {
         return this.spellList.remove(index);
     }
 
-    /**
-     * print the inventory
-     */
+
+    // print the inventory
     public void printInfo() {
         System.out.println();
         this.printWeapons();
@@ -109,59 +111,47 @@ public class Inventory {
         this.printSpells();
     }
 
-    /**
-     * print all weapons in the market
-     */
+
+    // print weapons in the market
     public void printWeapons() {
-        System.out.println("     \u001B[36mWeapons  List\u001B[0m  ");
-        System.out.println();
-        System.out.println("ID   Name\t\t Cost  Required Level  Damage  Required Hands");
+        System.out.println("     \u001B[36mWeapons  List\u001B[0m  \n");
+        System.out.println("ID   Name\t\t Price  Required Level  Damage  Required Hands");
         System.out.println("-------------------------------------------------------------------------------------");
-        for (int i = 0; i < this.weaponList.size(); i++) {
-            System.out.print(" " + (i + 1) + "   ");
-            this.weaponList.get(i).printInfo();
-        }
+        commonPrint(this.weaponList);
     }
 
-    /**
-     * print armors in the market
-     */
+
+    // print armors in the market
     public void printArmors() {
-        System.out.println("     \u001B[36mArmors  List\u001B[0m  ");
-        System.out.println();
-        System.out.println("ID   Name\t\t Cost  Required Level  Damage Reduction");
+        System.out.println("     \u001B[36mArmors  List\u001B[0m  \n");
+        System.out.println("ID   Name\t\t Price  Required Level  Damage Reduction");
         System.out.println("---------------------------------------------------------------------------");
-        for (int i = 0; i < this.armorList.size(); i++) {
-            System.out.print(" " + (i + 1) + "   ");
-            this.armorList.get(i).printInfo();
-        }
+        commonPrint(this.armorList);
     }
 
-    /**
-     * print potions in the market
-     */
+
+    // print potions in the market
     public void printPotions() {
-        System.out.println("     \u001B[36mPotions  List\u001B[0m  ");
-        System.out.println();
-        System.out.println("ID   Name\t\t Cost  Required Level  Increment  Attribute Affected");
+        System.out.println("     \u001B[36mPotions  List\u001B[0m  \n");
+        System.out.println("ID   Name\t\t Price  Required Level  Increment  Attribute Affected");
         System.out.println("------------------------------------------------------------------------------------------------------");
-        for (int i = 0; i < this.potionList.size(); i++) {
-            System.out.print(" " + (i + 1) + "   ");
-            this.potionList.get(i).printInfo();
-        }
+        commonPrint(this.potionList);
     }
 
-    /**
-     * print spells in the market
-     */
+
+    // print spells in the market
     public void printSpells() {
-        System.out.println("     \u001B[36mSpells List\u001B[0m  ");
-        System.out.println();
-        System.out.println("ID   Name\t\t Cost  Required Level  Damage  Mana Cost  Type");
+        System.out.println("     \u001B[36mSpells List\u001B[0m  \n");
+        System.out.println("ID   Name\t\t Price  Required Level  Damage  Mana Cost  Type");
         System.out.println("------------------------------------------------------------------------------------------");
-        for (int i = 0; i < this.spellList.size(); i++) {
+        commonPrint(this.spellList);
+    }
+
+    // common part
+    public <T extends RPGItem> void commonPrint(List<T> itemList) {
+        for (int i = 0; i < itemList.size(); i++) {
             System.out.print(" " + (i + 1) + "   ");
-            this.spellList.get(i).printInfo();
+            itemList.get(i).printInfo();
         }
     }
 
