@@ -5,10 +5,10 @@
 
 public class LegendWorld extends World {
 
-    private final static String MARKET_TILE = String.format("\u001B[34m%s\u001B[0m", TileType.MARKET);
-    private final static String COMMON_TILE = TileType.COMMON.toString();
-    private final static String INACCESSIBLE_TILE = TileType.INACCESSIBLE.toString();
-    private final static String TEAM_TILE = String.format("\u001B[31m%s\u001B[0m", TileType.TEAM);
+    protected final static String MARKET_TILE = String.format("\u001B[34m%s\u001B[0m", TileType.MARKET);
+    protected final static String COMMON_TILE = TileType.COMMON.toString();
+    protected final static String INACCESSIBLE_TILE = TileType.INACCESSIBLE.toString();
+    protected final static String TEAM_TILE = String.format("\u001B[31m%s\u001B[0m", TileType.TEAM);
 
     protected int teamX;
     protected int teamY;
@@ -59,13 +59,13 @@ public class LegendWorld extends World {
 
     private void fixSurroundTeam() {
         if (teamX < height - 1 && teamX > 0 && teamY > 0 && teamY < width - 1) {
-                map[teamX - 1][teamY] = COMMON_TILE;
+            setTile(teamX - 1, teamY, COMMON_TILE);
         }
         else if (teamX == 0 || teamX == height - 1) {
-            map[teamX == 0 ? 1 : height - 2][teamY] = COMMON_TILE;
+            setTile(teamX == 0 ? 1 : height - 2, teamY, COMMON_TILE);
         }
         else if (teamY == 0 || teamY == width - 1) {
-            map[teamX][teamY == 0 ? 1 : height - 2] = COMMON_TILE;
+            setTile(teamX, teamY == 0 ? 1 : height - 2, COMMON_TILE);
         }
     }
 

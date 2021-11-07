@@ -38,7 +38,7 @@ public abstract class World {
         map[x][y] = tile;
     }
 
-    public void displayMap() {
+    public void printMap() {
         System.out.println();
         System.out.println("-------------------------------------------");
         for (int i = 0; i < this.width; i++) {
