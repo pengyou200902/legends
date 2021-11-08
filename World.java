@@ -40,14 +40,14 @@ public abstract class World {
 
     public void printMap() {
         System.out.println();
-        System.out.println("-------------------------------------------");
+        System.out.println("---------------------------------");
         for (int i = 0; i < this.width; i++) {
             System.out.print("|");
             for (int j = 0; j < this.height; j++) {
                 System.out.print(" " + this.map[j][i] + " |");
             }
             System.out.println();
-            System.out.println("-------------------------------------------");
+            System.out.println("---------------------------------");
             System.out.println();
         }
     }

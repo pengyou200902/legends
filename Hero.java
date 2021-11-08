@@ -43,7 +43,7 @@ public class Hero extends RPGCharacter {
         this.inventory = new Inventory();
     }
 
-    /** Take an action in battle */
+    // choose action in fight
     public void action(RPGCharacter enemy){
         boolean invalid;
         String choice;
@@ -69,7 +69,7 @@ public class Hero extends RPGCharacter {
                     System.out.println("\n----------------");
                     System.out.println("  Enemy Info");
                     System.out.println("----------------");
-                    System.out.println("Level   Name\t\t HP  Defense");
+                    System.out.println("Level\tName\t\t HP\tDefense\tDamage");
                     System.out.println("------------------------------------");
                     enemy.printInfo();
                     System.out.println();
@@ -365,7 +365,7 @@ public class Hero extends RPGCharacter {
         } while (invalid);
     }
 
-    /** Level up a hero */
+    // Level up a hero
     public void levelUp(){
         this.level += 1;
         this.hp = this.level * 100;
@@ -444,7 +444,7 @@ public class Hero extends RPGCharacter {
 
     // print info during battle
     public void printStatus() {
-        System.out.print(this.name + "\t\t" + this.hp + "  \t" + this.mp + "  \t");
+        System.out.print(this.level + "\t" + this.name + "\t" + this.hp + "  \t" + this.mp + "  \t");
         if (this.weapon == null && this.armor == null) {
             System.out.println("Not Equipped  \tNot Equipped");
         }

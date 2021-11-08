@@ -113,7 +113,7 @@ public class HeroTeam extends Team {
         System.out.println("------------------------");
         System.out.println("\t\tHero Team ");
         System.out.println("------------------------\n");
-        System.out.println("ID   Level     Class    Name\t\t Mana  Strength  Agility  Dexterity  Money  Exp");
+        System.out.println("ID\tLevel\tCategory    Name\t\t Mana  Strength  Agility  Dexterity  Money  Exp");
         System.out.println("----------------------------------------------------------------------------------------------");
         for (int i = 0; i < this.characters.size(); i++) {
             Hero hero = (Hero) this.characters.get(i);

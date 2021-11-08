@@ -51,7 +51,7 @@ public class MonsterTeam extends Team {
         System.out.println("-----------------------------------------");
         System.out.println("       \u001B[35m Monster Team \u001B[0m");
         System.out.println("-----------------------------------------");
-        System.out.println("ID   Level   Name                    HP      Defense       Damage");
+        System.out.println("ID   Level   Name\t\tHP      Defense       Damage");
         System.out.println("------------------------------------------------------------------------------");
         for (int i = 0; i < this.characters.size(); i++) {
             Monster m = (Monster) this.characters.get(i);

@@ -59,6 +59,6 @@ public class Monster extends RPGCharacter {
 
     @Override
     public String toString() {
-        return this.level + "  " + this.name + "\t" + this.hp + "  " + this.defense + "  " + this.damage;
+        return this.level + "  " + this.name + "\t\t" + this.hp + "  " + this.defense + "  " + this.damage;
     }
 }

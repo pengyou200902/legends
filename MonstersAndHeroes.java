@@ -30,10 +30,10 @@ public class MonstersAndHeroes extends RPGGame {
     
     // welcome message
     public void welcome() {
-        System.out.println("\n \u001B[35m ========================================== \u001B[0m \n");
-        System.out.println("       \u001B[35m Legends: Moster and Heroes \u001B[0m");
-        System.out.println("\n \u001B[35m ========================================== \u001B[0m \n");
-        System.out.println("  \u001B[35mWelcome to the world of adventure!\n");
+        System.out.println("\n \u001B[33m ========================================== \u001B[0m \n");
+        System.out.println("       \u001B[33m Legends: Moster and Heroes \u001B[0m");
+        System.out.println("\n \u001B[33m ========================================== \u001B[0m \n");
+        System.out.println("  \u001B[33mWelcome to the world of adventure!\n");
         System.out.println("  Control your heroes to fight against monsters.");
         System.out.println("  You may randomly encounter fights during you adventure.");
         System.out.println("  Heroes gain money and experience by winning the fight.");
@@ -46,10 +46,10 @@ public class MonstersAndHeroes extends RPGGame {
         if (choice.equals("I") || choice.equals("i")) {
             this.printInfo();
             this.init();
-        } 
+        }
         else if (choice.equals("Q") || choice.equals("q")) {
             System.exit(0);
-        } 
+        }
         else {
             this.init();
         }
@@ -60,7 +60,7 @@ public class MonstersAndHeroes extends RPGGame {
         System.out.println("\n     You can create your team!\n");
         System.out.println("       You can choose 3 types of heroes: Warriors, Sorcerers and Paladins.");
         System.out.println("       Note: you can choose up to 3 heroes to form a team.\n");
-        
+
         // add characters
         boolean invalid = true;
         do {
@@ -70,7 +70,7 @@ public class MonstersAndHeroes extends RPGGame {
             this.team.addCharacter(this.heroList.chooseHero());
             if (this.team.size() == 3) {
                 invalid = false;
-            } 
+            }
             else {
                 System.out.print("Do you want to select another hero? (Y/y for yes, N/n for no or Q/q to quit game):");
                 boolean anotherHero;
@@ -119,7 +119,7 @@ public class MonstersAndHeroes extends RPGGame {
         int teamX = this.team.getX();
         int teamY = this.team.getY();
         String teamTile = this.world.getTile(teamX, teamY);
-        
+
         // on a Market tile then trade
         if (teamTile.equals(LegendWorld.MARKET_TILE)) {
             System.out.println("\n\u001B[32m You find a Market. \u001B[0m\n");
@@ -130,7 +130,7 @@ public class MonstersAndHeroes extends RPGGame {
                 System.out.println("\n\u001B[31m You encounter a fight. \u001B[0m\n");
                 this.fight();
             } else {
-                System.out.println("\n\u001B[35m Nothing special happened. \u001B[0m\n");
+                System.out.println("\n\u001B[33m Nothing special happened. \u001B[0m\n");
                 this.nothingHappen();
             }
         }
@@ -159,23 +159,23 @@ public class MonstersAndHeroes extends RPGGame {
                 choice = scanner.nextLine();
                 if (choice.equals("Q") || choice.equals("q")) {
                     System.exit(0);
-                } 
+                }
                 else if (choice.matches("\\d+")) {
                     int heroId = Integer.parseInt(choice);
                     if (heroId > 0 && heroId <= this.team.size()) {
                         this.actionInRest((Hero) this.team.getCharacter(heroId - 1));
-                    } 
+                    }
                     else {
                         System.out.print("Invalid input, input hero index view a hero or C/c to continue adventure:");
                     }
-                } 
+                }
                 else if (!choice.equals("C") && !choice.equals("c")) {
                     System.out.print("Invalid input, input hero index view a hero or C/c to continue adventure:");
                 }
             } while (true);
         }
     }
-    
+
     // take action during rest
     protected void actionInRest(Hero hero){
         System.out.print("Do you want to 1.Check Inventory 2.Change Weapon 3.Change Armor 4.Drink Potion 5.Return:");
@@ -227,10 +227,10 @@ public class MonstersAndHeroes extends RPGGame {
                 case "w":
                     if (teamY <= 0) {
                         System.out.print("You're at top edge, try another direction:");
-                    } 
+                    }
                     else if (this.world.isInaccessible(teamX, teamY - 1)) {
                         System.out.print("Inaccessible tile, please try a another direction:");
-                    } 
+                    }
                     else {
                         this.team.goUp();
                         move = false;
@@ -240,10 +240,10 @@ public class MonstersAndHeroes extends RPGGame {
                 case "a":
                     if (teamX <= 0) {
                         System.out.print("You're at left edge, try a another direction:");
-                    } 
+                    }
                     else if (this.world.isInaccessible(teamX - 1, teamY)) {
                         System.out.print("Inaccessible tile, please try a another direction:");
-                    } 
+                    }
                     else {
                         this.team.goLeft();
                         move = false;
@@ -253,10 +253,10 @@ public class MonstersAndHeroes extends RPGGame {
                 case "s":
                     if (teamY >= this.world.getHeight()) {
                         System.out.print("You're at bottom edge, try a another direction:");
-                    } 
+                    }
                     else if (this.world.isInaccessible(teamX, teamY + 1)) {
                         System.out.print("Inaccessible tile, please try a another direction:");
-                    } 
+                    }
                     else {
                         this.team.goDown();
                         move = false;
@@ -266,10 +266,10 @@ public class MonstersAndHeroes extends RPGGame {
                 case "d":
                     if (teamX >= this.world.getWidth()) {
                         System.out.print("Reach right edge, try a another direction:");
-                    } 
+                    }
                     else if (this.world.isInaccessible(teamX + 1, teamY)) {
                         System.out.print("Inaccessible tile, please try a another direction:");
-                    } 
+                    }
                     else {
                         this.team.goRight();
                         move = false;
@@ -289,14 +289,14 @@ public class MonstersAndHeroes extends RPGGame {
             }
         } while (move);
     }
-    
+
     // encounter monsters
     @Override
     public void fight() {
         System.out.println("\n \u001B[31m ----------------------------------------------- \u001B[0m \n");
-        System.out.println("       \u001B[31m Battle Start \u001B[0m");
+        System.out.println("       \u001B[31m Fight Start \u001B[0m");
         System.out.println("\n \u001B[31m ----------------------------------------------- \u001B[0m \n");
-        
+
         int maxLevel = this.team.getMaxLevel();
         MonsterTeam monsters = this.monsterList.createTeam(this.team.size(), maxLevel);
         team.printTeam();
@@ -309,8 +309,9 @@ public class MonstersAndHeroes extends RPGGame {
         } while (!this.team.isFaint() && !monsters.isFaint());
         // hero team wins else game over
         if (monsters.isFaint()) {
+            System.out.println("\n Heroes won the fight! You can view info next time to check status.\n");
             this.team.win(maxLevel);
-        } 
+        }
         else {
             this.gameOver();
         }
@@ -327,7 +328,7 @@ public class MonstersAndHeroes extends RPGGame {
 
     // print game info
     public void printInfo() {
-        System.out.println("\n       \u001B[33m CONTROL INFO \u001B[0m\n");
+        System.out.println("\n       \u001B[33m Control Info \u001B[0m\n");
         System.out.println("        W/w - go up");
         System.out.println("        A/a - go left");
         System.out.println("        S/s - go down");
