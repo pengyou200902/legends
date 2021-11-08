@@ -12,17 +12,15 @@ import java.util.Scanner;
 
 
 public class DataReader {
-    public static List<List<String>> getData(String filePath) {
+    public static List<List<String>> getData(String filePath, int skipNLines) {
         File file = new File(filePath);
         try {
             Scanner scanner = new Scanner(file);
             List<List<String>> configs = new ArrayList<>();
-            int i = 0;
-            int prevSize = 0;
-            int currSize = 0;
+            int i = 1;
 
             while (scanner.hasNextLine()) {
-                if (i > 0) {
+                if (i > skipNLines) {
                     List<String> config = new ArrayList<>();
                     String line = scanner.nextLine().trim();
                     if (!line.isBlank()) {
@@ -38,7 +36,7 @@ public class DataReader {
             return configs;
 
         } catch (FileNotFoundException e) {
-            System.out.println("Can't find config for Warrior.");
+            System.out.println("Can't find config.");
             return null;
         }
     }
