@@ -3,15 +3,15 @@
  * @date 11/5/2021 9:42 PM
  */
 
-public abstract class Monster extends RPGCharacter {
+public class Monster extends RPGCharacter {
     protected double damage;
     protected double dodgeProbability;
 
-    Monster() {
+    public Monster() {
         super();
     }
 
-    Monster(String name, int level, double damage, double defense, double dodgeProbability) {
+    public Monster(String name, int level, double damage, double defense, double dodgeProbability) {
         super(name, level, defense);
         this.damage = damage;
         this.dodgeProbability = dodgeProbability;

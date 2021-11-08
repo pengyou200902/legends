@@ -11,6 +11,10 @@ public class IceSpell extends Spell {
         this.affectAttribute = "damage";
     }
 
+    public IceSpell(String name, int minLevel, double price, double damage, double mpCost) {
+        super(name, minLevel, price, damage, mpCost);
+    }
+
     @Override
     public String getAffectAttribute() {
         return affectAttribute;

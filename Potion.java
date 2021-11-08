@@ -13,7 +13,7 @@ public class Potion extends RPGItem implements SingleUse, Tradable {
         this.amount = 0;
     }
 
-    public Potion(String name, int minLevel, double price, double amount, String[] attributes) {
+    public Potion(String name, int minLevel, double price, String[] attributes, double amount) {
         super(name, minLevel, price);
         this.amount = amount;
         this.attributes = attributes;

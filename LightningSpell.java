@@ -11,6 +11,10 @@ public class LightningSpell extends Spell {
         this.affectAttribute = "dodge";
     }
 
+    public LightningSpell(String name, int minLevel, double price, double damage, double manaCost) {
+        super(name, minLevel, price, damage, manaCost);
+    }
+
     @Override
     public String getAffectAttribute() {
         return affectAttribute;
